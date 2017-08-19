@@ -1,0 +1,381 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Ruby and game development</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+      <div class="multi-bg">  
+        <div class="slides">
+          <section data-markdown>
+            <script type="text/template">
+              # Ruby and game development
+
+              *Róża Szylar*
+
+              RRUG #8
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## What options do we have?
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Web games with Rails
+
+              - simply using Rails as backend for JS games
+              - Action Cable
+              - *opal-phaser* - wraps the Phaser API in Opal, to allow developers to write HTML5 and WebGL games entirely from Ruby code
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## RubyMotion - choice for mobile
+
+              - ruby implementation that runs on iOS, OS X and Android
+              - commercial product, works exclusively on OS X
+              - almost native performance
+              - paid or with non-removable splash screen
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## RubyMotion - libraries
+
+              - *motion-game* - cross-platform mobile game engine for RubyMotion. It lets you write mobile games in Ruby for iOS, tvOS and Android. Currently in beta
+              - *motion-gosu* - RubyMotion version of Gosu, a work in progress port and does not support Android
+              - *Joybox* - Cocos2D & Box2D wrapper, currently out of date and unmaintained
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## RPG Maker
+              WYSIWYG tool for creating 2D RPG games, unitl VX Ace version using Ruby as scripting language
+              ![RPG Maker](images/rpgmaker.png) <!-- .element height="60%" width="60%" -->
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Roguelike games
+
+              *dispel* gem, *ncurces* and *libtcod* bindings
+
+              ![Rogue](images/rogue.png) <!-- .element height="60%" width="60%" -->
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## 3D...
+
+              - *opengl* an OpenGL wrapper for Ruby
+              - *Mittsu* abstraction over OpenGL, and is based heavily off of THREE.js
+              - Ruby might be quite slow for 3D
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## jRuby
+              - ruby implementation atop the Java Virtual Machine, written largely in Java
+              - faster, better threading and concurrency
+              - allows to use Java libraries
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## jRuby - libraries
+              - *Slick 2D* easy to use set of tools and utilities wrapped around LWJGL to make 2D Java game development easie
+              - *libGDX* cross-platform Java game development framework based on OpenGL
+              - *jMonkeyEngine* free, open source game engine, made especially for Java game developers who want to create 3D games using modern technolog
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Game libraries
+
+              - *Gosu* 2D game development library for Ruby and C++. Most popular, great for start
+              - *RubyGame* - abandoned
+            </script>
+          </section>
+          
+          <section data-markdown>
+            <script type="text/template">
+              ## 2D game graphic types
+
+              |top-down perspective|side-scrolling game|2.5D, 3/4 perspective, and pseudo-3D|
+              |:-:|:-:|:-:|
+              |![Top](images/top.png) <!-- .element height="70%" width="70%" -->|![Side](images/side.jpg) <!-- .element height="80%" width="80%" -->|![2.5D](images/25d.png) <!-- .element height="70%" width="70%" -->|
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Resources
+
+              - *OpenGameArt.org* - media repository intended for use with free software game projects
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Gosu
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Gosu Window
+              
+              ```ruby
+              class GameWindow < Gosu::Window
+                def initialize
+                  super(1280, 720, fullscreen: true)
+                  self.caption = "Ruby Game Demo"
+                end
+
+                def update
+                end
+
+                def draw
+                end
+              end
+
+              window = GameWindow.new
+              window.show
+              ```
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## update() and draw()
+
+              overrides of `Gosu::Window`'s methods
+
+              - *`update()`* is called 60 times per second by default, and should contain the main game logic, such as moving objects around, or testing for collisions
+              - *`draw()`* it should contain the code to redraw the whole screen, but no updates to the game's state, may be skipped for performance reasons
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Main loop
+
+              ![Main loop](images/loop.png) <!-- .element height="80%" width="80%" class="simple-img" -->
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              <!-- .slide: class="two-floating-elements" -->
+              ## Coordinates
+
+              - `x ` and `y` are measured in pixels, the pixel in top-left corner of the screen has coordinates of 0:0
+              - images with higher `z` value will be drawn on top
+
+              ![Coordinates](images/coordinates.png) <!-- .element class="simple-img" -->
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              <!-- .slide: class="two-floating-elements" -->
+              ## Drawing images
+
+              ```
+              def initialize
+                ...
+                @background_image = Gosu::Image.new("media/background.png")
+              end
+
+              def draw
+                x = 10
+                y = 10
+                z = 0
+                @background_image.draw(x, y, z)
+              end
+              ```
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Moving and animation
+
+              - Gosu doesn’t handle animation, we have to draw each tile in a sequence ourselves
+              - using math for positions, angles etc.
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Images sprites
+
+              ```
+              @images = Gosu::Image.load_tiles("player_sprite.png", 132, 250)
+              @current_image = @images[0] 
+              ```
+
+              ![Sprite](images/player_sprite.png) <!-- .element height="50%" width="50%" -->
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Moving and animation II
+              
+              ```ruby
+
+              class GameWindow < Gosu::Window
+                def update
+                  move_x = move_y = 0
+                  move_x -= 5 if button_down?(Gosu::KbLeft)
+                  move_x += 5 if button_down?(Gosu::KbRight)
+
+                  @player.update(move_x, move_y)
+                end
+
+                def draw
+                  @player.draw
+                end
+              end
+
+              ```
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Moving and animation III
+              
+              ```ruby
+              class Player
+                def draw
+                  @current_image.draw(@x , @y, 1)
+                end
+                
+                def update(move_x, move_y)
+                  number = Gosu::milliseconds / 80 % 10
+                  @current_image = @images[number]
+
+                  @x += move_x
+                  @y += move_y
+                end
+              end
+
+              ```
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Sounds and music
+
+              - *`Gosu::Sample`* short sound, very flexible
+              - *`Gosu::Song`* only one can be played at a time, with no panning or speed control
+              
+              ```ruby
+                volume  = 1
+                speed   = 1
+                looping = true
+
+                steps_sound = Gosu::Sample.new("media/steps.mp3")
+                @playing_sound = steps_sound.play(volume, speed, looping)
+                @playing_sound.pause
+                @playing_sound.play
+
+              ```
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Other gems
+
+              - *Gamebox* designed to spring board game development. It allows the developer to define business rules about a game very quickly
+              - *Chingu* adds simple yet powerful game states, pretty input handling, deployment safe asset-handling, a basic re-usable game object and automation of common task
+
+              not really maintained :(
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Problems
+              - slow dynamic, interpreted language
+              - code visibility
+              - distribution and packaging
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Is ruby good for game dev?
+
+              - it can do everything needed for creating games - drawing to the screen, collecting input and playing audio
+              - good to learn game development concepts
+              - not suitable for high-performance, professional, commercial, 3D games
+              - great for hobby projects
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Thank you! Questions?
+
+              ![Cat](images/cat.gif) <!-- .element height="60%" width="60%" -->
+            </script>
+          </section>
+
+        </div>
+      </div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
